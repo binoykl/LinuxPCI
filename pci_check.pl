@@ -22,6 +22,7 @@
 
 use strict;
 my $internet_connectivity_url = "http://www.google.com";
+my %internet_connectivity_IP = "8.8.8.8";
 
 my $which_cmd = "which";
 my $etc_passwd_file = "/etc/passwd";
@@ -40,6 +41,8 @@ my $passwd_cmd = `$which_cmd passwd`;
   chomp $passwd_cmd;
 my $curl_cmd = `$which_cmd curl`;
   chomp $curl_cmd;
+my $ping_cmd = `$which_cmd ping`;
+  chomp $ping_cmd;
 my $crontab_cmd = `$which_cmd crontab`;
   chomp $crontab_cmd;
 my $ifconfig_cmd= `$which_cmd ifconfig`;
@@ -97,20 +100,34 @@ my @etc_passwd = open_file($etc_passwd_file);
 my @clamav_freshclam = open_file($var_log_clamav_freshclam_log);
 
 
-print "Hostname:\n\t$hostname";
+print "Hostname:\n\t$hostname\n";
 
 #print whether internet connectivity is detected or not
+print "Checking internet connectivity...\n"
 if ( length($curl_cmd) != 0 )
   {
     if ( `$curl_cmd --silent -m 5 $internet_connectivity_url` )
       {
-        print "\tINTERNET CONNECTIVITY DETECTED\n";
+        print "\tINTERNET CONNECTIVITY DETECTED via curl to $internet_connectivity_url\n";
       }
     else
       {
-        print "\tNO INTERNET CONNECTIVITY\n";
+        print "\tNO INTERNET CONNECTIVITY via curl\n";
       }
+  } else {
+	print "\tcurl command not found: $curl_cmd\n"
   }
+
+if ( length($ping_cmd) != 0 ) {
+	if ( `$ping_cmd $internet_connectivity_IP` ) {
+		print "\tInternet connectivity detected via ping to 8.8.8.8"
+	} else {
+		print "\tNO INTERNET CONNECTIVITY via ping to $internet_connectivity_IP\n"
+	}
+
+} else {
+	print "\tping command not found: $ping_cmd\n";
+}
 
 print "OS Version:\n";
 foreach (@etc_lsb_release)
