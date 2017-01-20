@@ -22,7 +22,7 @@
 
 use strict;
 my $internet_connectivity_url = "http://www.google.com";
-my %internet_connectivity_IP = "8.8.8.8";
+my $internet_connectivity_IP = "8.8.8.8";
 
 my $which_cmd = "which";
 my $etc_passwd_file = "/etc/passwd";
