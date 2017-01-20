@@ -103,20 +103,17 @@ my @clamav_freshclam = open_file($var_log_clamav_freshclam_log);
 print "Hostname:\n\t$hostname\n";
 
 #print whether internet connectivity is detected or not
-print "Checking internet connectivity...\n"
-if ( length($curl_cmd) != 0 )
-  {
-    if ( `$curl_cmd --silent -m 5 $internet_connectivity_url` )
-      {
+print "Checking internet connectivity...\n";
+if ( length($curl_cmd) != 0 ) {
+	if ( `$curl_cmd --silent -m 5 $internet_connectivity_url` ) {
         print "\tINTERNET CONNECTIVITY DETECTED via curl to $internet_connectivity_url\n";
-      }
-    else
-      {
-        print "\tNO INTERNET CONNECTIVITY via curl\n";
-      }
-  } else {
-	print "\tcurl command not found: $curl_cmd\n"
-  }
+	}
+    else {
+		print "\tNO INTERNET CONNECTIVITY via curl\n";
+	}
+} else {
+	[rint "\tcurl command not found: $curl_cmd\n"
+}
 
 if ( length($ping_cmd) != 0 ) {
 	if ( `$ping_cmd $internet_connectivity_IP` ) {
