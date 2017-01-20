@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-#  Version 0.0.1.G alpha
+#  Version 0.0.1
 #
 #  To use locally.
 #	example: 	"./pci_check.pl"
@@ -48,7 +48,7 @@ my $ifconfig_cmd= `$which_cmd ifconfig`;
 
 
 my $hostname = `/bin/hostname`;
-my @ps_cmd = `/bin/ps -eo %c h`;
+my @ps_cmd = `/bin/ps -eo %U%c%a --forest`;
 my @ifconfig = `$ifconfig_cmd`;
 my @netstat = `/bin/netstat -nlp`;
 my @pam_d_contents = `/bin/cat /etc/pam.d/*  2> /dev/null`;
