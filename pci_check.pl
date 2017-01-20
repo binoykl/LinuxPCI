@@ -112,7 +112,7 @@ if ( length($curl_cmd) != 0 ) {
 		print "\tNO INTERNET CONNECTIVITY via curl\n";
 	}
 } else {
-	[rint "\tcurl command not found: $curl_cmd\n"
+	print "\tcurl command not found: $curl_cmd\n"
 }
 
 if ( length($ping_cmd) != 0 ) {
